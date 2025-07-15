@@ -3,28 +3,31 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { getAuth } from "firebase/auth";
 
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeAuth, getReactNativePersistence } from "firebase/auth"; // <-- CHANGE HERE!
+
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage'; // <-- NEW IMPORT!
+
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 import ShoppingLists from './components/ShoppingLists.js'
 import Welcome from './components/Welcome.js';
 
 const App = () => {
   const firebaseConfig = {
-    apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID
-  };
+  apiKey: "AIzaSyBA1vWZKnkddD5n1N88_mta_Rf4gPiDmFI",
+  authDomain: "chat-app-d1777.firebaseapp.com",
+  projectId: "chat-app-d1777",
+  storageBucket: "chat-app-d1777.firebasestorage.app",
+  messagingSenderId: "915890104856",
+  appId: "1:915890104856:web:2d29a82b446e4ae830b16d",
+  measurementId: "G-7FW2XLWSZ8"
+};
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
