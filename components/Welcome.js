@@ -1,10 +1,12 @@
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native"
 import { signInAnonymously, getAuth } from "firebase/auth";
 
-const Welcome = ({ navigation, auth }) => {
+const Welcome = ({ navigation ,auth }) => {
+  // console.log("Auth prop in Start.js:", auth); 
+  console.log('hello world')
 
 // Initialize Firebase Auth
-  // const auth = getAuth(app);
+  // const auth = getAuth(app); NOT USING THIS WAY
 
  const signInUser = () => {
     signInAnonymously(auth)
@@ -22,7 +24,7 @@ const Welcome = ({ navigation, auth }) => {
       <Text style={styles.appTitle}>Shopping Lists</Text>
       <TouchableOpacity
         style={styles.startButton}
-        onPress={signInUser}> 
+        onPress={signInUser()}> 
         <Text style={styles.startButtonText}>Get started</Text>
       </TouchableOpacity>
     </View>
