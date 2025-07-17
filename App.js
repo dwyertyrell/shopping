@@ -21,16 +21,13 @@ return (
       <Stack.Navigator 
       initialRouteName = 'Welcome'
       >
-        <Stack.Screen
-          name="Welcome">
-          {props => <Welcome auth={auth} />}
+        <Stack.Screen name="Welcome">
+          {props => <Welcome {...props} auth={auth} />}
         </Stack.Screen>
 
-
-        <Stack.Screen
-          name="ShoppingLists">
-          {props => <ShoppingLists db={db} {...props} />}
-       </Stack.Screen>
+        <Stack.Screen name="ShoppingLists">
+          {props => <ShoppingLists {...props} db={db} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
    

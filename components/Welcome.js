@@ -1,15 +1,16 @@
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native"
-import { signInAnonymously, getAuth } from "firebase/auth";
+// Remove Firebase auth import since we're using the auth object passed as prop
+// import { signInAnonymously, getAuth } from "firebase/auth";
 
-const Welcome = ({ navigation ,auth }) => {
-  // console.log("Auth prop in Start.js:", auth); 
-  console.log('hello world')
+const Welcome = ({ navigation, auth }) => {
+  console.log("Auth prop in Welcome.js:", auth); 
+  console.log("Navigation prop in Welcome.js:", navigation);  
 
 // Initialize Firebase Auth
   // const auth = getAuth(app); NOT USING THIS WAY
 
  const signInUser = () => {
-    signInAnonymously(auth)
+    auth.signInAnonymously()
       .then(result => {
         navigation.navigate("ShoppingLists", {userID: result.user.uid });
         Alert.alert("Signed in Successfully!");
@@ -24,7 +25,7 @@ const Welcome = ({ navigation ,auth }) => {
       <Text style={styles.appTitle}>Shopping Lists</Text>
       <TouchableOpacity
         style={styles.startButton}
-        onPress={signInUser()}> 
+        onPress={signInUser}> 
         <Text style={styles.startButtonText}>Get started</Text>
       </TouchableOpacity>
     </View>
