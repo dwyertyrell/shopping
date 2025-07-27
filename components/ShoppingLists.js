@@ -1,30 +1,27 @@
 import { View,TouchableOpacity, Text,TextInput, FlatList, StyleSheet, KeyboardAvoidingView, Alert } from "react-native"
 import { useEffect, useState } from "react"
-import {collection, getDocs, addDoc, onSnapshot} from 'firebase/firestore';
+import {collection, addDoc, onSnapshot, query, where} from 'firebase/firestore';
 
-const ShoppingLists = ({db}) => {
+const ShoppingLists = ({db,route}) => {
+  const { userID } = route.params;
+
   const [lists, setLists] = useState([]);
   const [listName, setListName] = useState("");
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
 
-  // const fetchShoppingLists = async () => {
-  //   const listsDocuments = await getDocs(collection(db, "shoppinglists"));
-  //   let newLists = [];
-  //   listsDocuments.forEach(docObject => {
-  //     newLists.push({ id: docObject.id, ...docObject.data() })
-  //   });
-  //   setLists(newLists);
-  // };
 
   useEffect( () => {
-    const unsubShoppinglists = onSnapshot(collection(db, "shoppinglists"), (documentsSnapshot) => {
+    const q = query(collection(db, "shoppinglists"), where('uid', '==', userID))
+    const unsubShoppinglists = onSnapshot(q,
+    (documentsSnapshot) => {
       let newLists = [];
       documentsSnapshot.forEach(doc => {
         newLists.push({ id: doc.id, ...doc.data() })
       });
       setLists(newLists);
     });
+    //clean up code
     return () => {
       if (unsubShoppinglists) unsubShoppinglists();
     }
@@ -44,6 +41,8 @@ const ShoppingLists = ({db}) => {
 
   return (
     <View style= {styles.container}>
+           <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-50}>
+
       <FlatList
         style = {styles.listsContainer}
         data = {lists}
@@ -78,6 +77,7 @@ const ShoppingLists = ({db}) => {
           style={styles.addButton}
           onPress={() => {
             const newList = {
+              uid: userID,
               name: listName,
               items: [item1, item2]
             }
@@ -87,6 +87,8 @@ const ShoppingLists = ({db}) => {
           <Text style={styles.addButtonText}>Add</Text>
         </TouchableOpacity>
       </View>
+          </KeyboardAvoidingView> 
+
     </View>
   )
 }
