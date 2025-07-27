@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { Text, View, StyleSheet } from 'react-native';
-import { db, getAuthInstance } from './firebase';
+import { db, auth } from './firebase';
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
@@ -10,11 +10,7 @@ import ShoppingLists from './components/ShoppingLists.js'
 import Welcome from './components/Welcome.js';
 
 const App = () => {
-    // Using lazy initialization for Firebase Auth
-    const auth = getAuthInstance();
-    
-    console.log('db', db);
-    console.log('auth', auth);
+   
 
 return (
     <NavigationContainer>

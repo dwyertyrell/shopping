@@ -18,38 +18,8 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase services
 const db = getFirestore(app);
 
-// Mock auth object for development
-const mockAuth = {
-  currentUser: null,
-  signInWithEmailAndPassword: async (email, password) => {
-    console.log('Mock sign in:', email);
-    return { user: { uid: 'mock-user-id', email } };
-  },
-  createUserWithEmailAndPassword: async (email, password) => {
-    console.log('Mock create user:', email);
-    return { user: { uid: 'mock-user-id', email } };
-  },
-  signInAnonymously: async () => {
-    console.log('Mock anonymous sign in');
-    return { user: { uid: 'mock-anonymous-user-id', isAnonymous: true } };
-  },
-  signOut: async () => {
-    console.log('Mock sign out');
-    return true;
-  }
-};
-
-// Try to get real Firebase Auth, fallback to mock
-const getAuthInstance = () => {
-  try {
     const { getAuth } = require("firebase/auth");
     const auth = getAuth(app);
-    console.log('Firebase Auth initialized successfully');
-    return auth;
-  } catch (error) {
-    console.warn('Firebase Auth failed, using mock auth:', error.message);
-    return mockAuth;
-  }
-};
 
-export { db, getAuthInstance };
+
+export { db, auth };
